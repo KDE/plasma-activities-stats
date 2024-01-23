@@ -5,6 +5,7 @@ set(PROJECT_VERSION "5.92.90")
 set(PROJECT_VERSION_MAJOR 6)
 project(PlasmaActivitiesStats VERSION ${PROJECT_VERSION})
 
+set(PROJECT_DEP_VERSION "6.0.80")
 set(QT_MIN_VERSION "6.6.0")
 set(KF6_MIN_VERSION "5.240.0")
 set(KDE_COMPILERSETTINGS_LEVEL "5.82")
@@ -35,7 +36,7 @@ add_feature_info(QCH ${BUILD_QCH} "API documentation in QCH format (for e.g. Qt 
 find_package(Qt6 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS Core DBus Sql)
 
 find_package(KF6Config ${KF6_MIN_VERSION} CONFIG REQUIRED)
-find_package(PlasmaActivities ${PROJECT_VERSION} CONFIG REQUIRED)
+find_package(PlasmaActivities ${PROJECT_DEP_VERSION} CONFIG REQUIRED)
 find_package(Threads REQUIRED)
 
 include(CMakePackageConfigHelpers)
