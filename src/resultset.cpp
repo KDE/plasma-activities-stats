@@ -145,12 +145,9 @@ public:
             return QStringLiteral("1");
         }
 
-        /* clang-format off */
-        return QStringLiteral("agent = '") + (
-                agent == QLatin1String(":current") ? QCoreApplication::instance()->applicationName() :
-                                      agent
-            ) + QStringLiteral("'");
-        /* clang-format on */
+        return QLatin1String("agent = '")
+            + Common::escapeSqliteLikePattern(agent == QLatin1String(":current") ? QCoreApplication::instance()->applicationName() : agent)
+            + QLatin1String("'");
     }
 
     QString activityClause(const QString &activity) const
@@ -159,12 +156,9 @@ public:
             return QStringLiteral("1");
         }
 
-        /* clang-format off */
-        return QStringLiteral("activity = '") + (
-                activity == QLatin1String(":current") ? ActivitiesSync::currentActivity(activities) :
-                                         activity
-            ) + QStringLiteral("'");
-        /* clang-format on */
+        return QLatin1String("activity = '") + //
+            Common::escapeSqliteLikePattern(activity == QLatin1String(":current") ? ActivitiesSync::currentActivity(activities) : activity)
+            + QLatin1String("'");
     }
 
     inline QString starPattern(const QString &pattern) const
