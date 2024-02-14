@@ -13,6 +13,7 @@
 #include <QDebug>
 #include <QFile>
 #include <QTimer>
+#include <QPointer>
 
 // STL
 #include <functional>
