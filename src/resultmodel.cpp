@@ -12,6 +12,7 @@
 #include <QDateTime>
 #include <QDebug>
 #include <QFile>
+#include <QPointer>
 #include <QTimer>
 
 // STL
