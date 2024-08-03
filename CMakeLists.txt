@@ -51,8 +51,8 @@ ecm_setup_version (
    SOVERSION 1
    )
 ecm_set_disabled_deprecation_versions(
-    QT 6.4.0
-    KF 5.102.0
+    QT 6.7.0
+    KF 6.4.0
 )
 
 add_subdirectory(src)
