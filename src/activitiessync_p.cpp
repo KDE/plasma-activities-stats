@@ -5,8 +5,14 @@
 */
 
 #include "activitiessync_p.h"
+#include "plasma-activities-stats-logsettings.h"
 
 #include <QCoreApplication>
+#include <QDebug>
+#include <QThread>
+#include <QDBusConnection>
+#include <QDBusMessage>
+#include <QDBusReply>
 
 namespace ActivitiesSync
 {
@@ -31,18 +37,29 @@ ConsumerPtr instance()
 
 QString currentActivity(ConsumerPtr &activities)
 {
-    // We need to get the current activity synchonously,
-    // this means waiting for the service to be available.
-    // It should not introduce blockages since there usually
-    // is a global activity cache in applications that care
-    // about activities.
-
     if (!activities) {
         activities = instance();
     }
 
-    while (activities->serviceStatus() == KActivities::Consumer::Unknown) {
-        QCoreApplication::instance()->processEvents();
+    if (activities->serviceStatus() == KActivities::Consumer::Unknown) {
+        if (QThread::currentThread()->loopLevel() == 0) {
+            // If there's no event loop running, we can't load the cache
+            // Query the current activity directly
+            QDBusReply<QString> reply = QDBusConnection::sessionBus().call(
+                QDBusMessage::createMethodCall(
+                    QStringLiteral("org.kde.ActivityManager"),
+                    QStringLiteral("/ActivityManager/Activities"),
+                    QStringLiteral("org.kde.ActivityManager.Activities"),
+                    QStringLiteral("CurrentActivity")
+                ));
+            if (reply.isValid()) {
+                return reply.value();
+            } else {
+                qCWarning(PLASMA_ACTIVITIES_STATS_LOG) << "Failed to query current activity:" << reply.error().message();
+            }
+        } else {
+            qCDebug(PLASMA_ACTIVITIES_STATS_LOG) << "Queried current activity before service KAMD is loaded";
+        }
     }
 
     return activities->currentActivity();
