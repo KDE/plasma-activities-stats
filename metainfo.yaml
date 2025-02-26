@@ -1,0 +1,13 @@
+description: Activities Stats Libary
+platforms:
+    - name: Linux
+    - name: FreeBSD
+portingAid: false
+deprecated: false
+release: true
+libraries:
+    - cmake: Plasma::ActivitiesStats
+cmakename: PlasmaActivitiesStats
+
+public_lib: true
+group: Plasma
