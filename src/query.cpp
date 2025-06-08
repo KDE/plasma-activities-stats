@@ -135,7 +135,7 @@ bool Query::operator!=(const Query &right) const
                                                                                                                                                                \
     QStringList Query::What() const                                                                                                                            \
     {                                                                                                                                                          \
-        return d->What.size() ? d->What : Default;                                                                                                             \
+        return d->What.isEmpty() ? d->What : Default;                                                                                                          \
     }                                                                                                                                                          \
                                                                                                                                                                \
     void Query::clear##WHAT()                                                                                                                                  \
