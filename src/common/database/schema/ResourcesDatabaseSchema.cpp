@@ -14,8 +14,6 @@ namespace Common
 {
 namespace ResourcesDatabaseSchema
 {
-const QString name = QStringLiteral("Resources");
-
 QLatin1String version()
 {
     return QLatin1String("2015.02.09");
