@@ -150,8 +150,8 @@ public:
 
 #if DEBUG_MATCHERS
         qCDebug(PLASMA_ACTIVITIES_STATS_LOG) << "Type "
-                                       << "...type..."
-                                       << "matching against" << query.types();
+                                             << "...type..."
+                                             << "matching against" << query.types();
         qCDebug(PLASMA_ACTIVITIES_STATS_LOG) << "ANY_TYPE_TAG" << ANY_TYPE_TAG;
 #endif
 
@@ -268,7 +268,7 @@ public:
                 if (!m_resultInvalidationTimer.isActive()) {
                     // Remove a result only if we haven't an invalidation
                     // request scheduled
-                    q->resultRemoved(resource);
+                    Q_EMIT q->resultRemoved(resource);
                 }
             }
         }
