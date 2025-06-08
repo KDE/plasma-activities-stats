@@ -57,7 +57,7 @@ public:
         , q(parent)
         , query(query)
     {
-        for (const auto &urlFilter : query.urlFilters()) {
+        for (const auto filters = query.urlFilters(); const auto &urlFilter : filters) {
             urlFilters << Common::starPatternToRegex(urlFilter);
         }
 
