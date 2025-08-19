@@ -127,14 +127,16 @@ public:
 
         auto selection = queryDefinition.selection();
 
-        query = database->execQuery(replaceQueryParameters( //
+        const auto queryString = replaceQueryParameters( //
             selection == LinkedResources     ? linkedResourcesQuery()
                 : selection == UsedResources ? usedResourcesQuery()
                 : selection == AllResources  ? allResourcesQuery()
-                                             : QString()));
+                                             : QString());
+        query = database->execQuery(queryString);
 
         if (query.lastError().isValid()) {
-            qCWarning(PLASMA_ACTIVITIES_STATS_LOG) << "[Error at ResultSetPrivate::initQuery]: " << query.lastError();
+            qCWarning(PLASMA_ACTIVITIES_STATS_LOG) << "[Error at ResultSetPrivate::initQuery]: " << query.lastError() << "in query:";
+            qCWarning(PLASMA_ACTIVITIES_STATS_LOG).noquote() << queryString;
         }
     }
 
@@ -291,15 +293,19 @@ public:
         queryString.replace(QLatin1String("ORDER_BY_CLAUSE"), QLatin1String("ORDER BY $orderingColumn resource ASC"))
             .replace(QLatin1String("LIMIT_CLAUSE"), limitOffsetSuffix());
 
-        const QString replacedQuery =
+        auto listBasedFilter = [](const auto &list) {
+            return list.isEmpty() ? QStringLiteral("1") : list.join(QStringLiteral(" OR "));
+        };
+
+        const QString replacedQuery = //
             queryString.replace(QLatin1String("$orderingColumn"), orderingColumn)
-                .replace(QLatin1String("$agentsFilter"), agentsFilter.join(QStringLiteral(" OR ")))
-                .replace(QLatin1String("$activitiesFilter"), activitiesFilter.join(QStringLiteral(" OR ")))
-                .replace(QLatin1String("$urlFilter"), urlFilter.join(QStringLiteral(" OR ")))
-                .replace(QLatin1String("$mimetypeFilter"), mimetypeFilter.join(QStringLiteral(" OR ")))
+                .replace(QLatin1String("$agentsFilter"), listBasedFilter(agentsFilter))
+                .replace(QLatin1String("$activitiesFilter"), listBasedFilter(activitiesFilter))
+                .replace(QLatin1String("$urlFilter"), listBasedFilter(urlFilter))
+                .replace(QLatin1String("$mimetypeFilter"), listBasedFilter(mimetypeFilter))
                 .replace(QLatin1String("$resourceEventJoin"), resourceEventJoin)
                 .replace(QLatin1String("$dateFilter"), dateColumn)
-                .replace(QLatin1String("$titleFilter"), titleFilter.isEmpty() ? QStringLiteral("1") : titleFilter.join(QStringLiteral(" OR ")));
+                .replace(QLatin1String("$titleFilter"), listBasedFilter(titleFilter));
         return kamd::utils::debug_and_return(DEBUG_QUERIES, "Query: ", replacedQuery);
     }
 
