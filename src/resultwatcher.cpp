@@ -264,12 +264,10 @@ public:
             if (resource.contains(QLatin1Char('*'))) {
                 scheduleResultsInvalidation();
 
-            } else if (typeMatches(resource)) {
-                if (!m_resultInvalidationTimer.isActive()) {
-                    // Remove a result only if we haven't an invalidation
-                    // request scheduled
-                    Q_EMIT q->resultRemoved(resource);
-                }
+            } else if (!m_resultInvalidationTimer.isActive()) {
+                // Remove a result only if we haven't an invalidation
+                // request scheduled
+                Q_EMIT q->resultRemoved(resource);
             }
         }
     }
