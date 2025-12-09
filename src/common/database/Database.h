@@ -110,11 +110,14 @@ QString parseStarPattern(const QString &pattern, const QString &joker, EscapeFun
     return resultPattern;
 }
 
+inline QString escapeSingleQuotes(QString pattern)
+{
+    return pattern.replace('\'', "''");
+}
+
 inline QString escapeSqliteLikePattern(QString pattern)
 {
-    return pattern.replace(QLatin1String("%"), QLatin1String("\\%"))
-        .replace(QLatin1String("_"), QLatin1String("\\_"))
-        .replace(QLatin1String("'"), QLatin1String("\\'"));
+    return escapeSingleQuotes(pattern).replace(QLatin1String("%"), QLatin1String("\\%")).replace(QLatin1String("_"), QLatin1String("\\_"));
 }
 
 inline QString starPatternToLike(const QString &pattern)

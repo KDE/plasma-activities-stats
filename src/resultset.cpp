@@ -145,10 +145,8 @@ public:
         if (agent == QLatin1String(":any")) {
             return QStringLiteral("1");
         }
-
         return QLatin1String("agent = '")
-            + Common::escapeSqliteLikePattern(agent == QLatin1String(":current") ? QCoreApplication::instance()->applicationName() : agent)
-            + QLatin1String("'");
+            + Common::escapeSingleQuotes(agent == QLatin1String(":current") ? QCoreApplication::instance()->applicationName() : agent) + QLatin1String("'");
     }
 
     QString activityClause(const QString &activity) const
@@ -158,8 +156,7 @@ public:
         }
 
         return QLatin1String("activity = '") + //
-            Common::escapeSqliteLikePattern(activity == QLatin1String(":current") ? ActivitiesSync::currentActivity(activities) : activity)
-            + QLatin1String("'");
+            Common::escapeSingleQuotes(activity == QLatin1String(":current") ? ActivitiesSync::currentActivity(activities) : activity) + QLatin1String("'");
     }
 
     inline QString starPattern(const QString &pattern) const
