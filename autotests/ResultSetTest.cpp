@@ -194,27 +194,27 @@ void ResultSetTest::initTestCase()
     database->execQuery(QStringLiteral(
         "INSERT INTO ResourceScoreCache (usedActivity, initiatingAgent, targettedResource, scoreType, cachedScore, firstUpdate, lastUpdate) VALUES "
 
-        "   ('activity1' , 'gvim'                 , '/path/high1_act1_gvim' , '0' , '800' , '-1' , '1421446599')"
-        " , ('activity2' , 'kate'                 , '/path/high2_act2_kate' , '0' , '700' , '-1' , '1421439442')"
-        " , ('activity1' , 'kate'                 , '/path/high3_act1_kate' , '0' , '600' , '-1' , '1421439442')"
-        " , ('activity1' , 'gvim'                 , '/path/high4_act1_gvim' , '0' , '500' , '-1' , '1421446488')"
-        " , ('activity1' , 'KActivitiesStatsTest' , '/path/high5_act1_kast' , '0' , '400' , '-1' , '1421446599')"
-        " , ('activity2' , 'KActivitiesStatsTest' , '/path/high6_act2_kast' , '0' , '300' , '-1' , '1421439442')"
-        " , ('activity1' , 'KActivitiesStatsTest' , '/path/high7_act1_kast' , '0' , '200' , '-1' , '1421439442')"
-        " , ('activity1' , 'KActivitiesStatsTest' , '/path/high8_act1_kast' , '0' , '100' , '-1' , '1421446488')"
+        "   ('activity1' , 'gvim'                       , '/path/high1_act1_gvim' , '0' , '800' , '-1' , '1421446599')"
+        " , ('activity2' , 'kate'                          , '/path/high2_act2_kate' , '0' , '700' , '-1' , '1421439442')"
+        " , ('activity1' , 'kate'                       , '/path/high3_act1_kate' , '0' , '600' , '-1' , '1421439442')"
+        " , ('activity1' , 'gvim'                       , '/path/high4_act1_gvim' , '0' , '500' , '-1' , '1421446488')"
+        " , ('activity1' , 'PlasmaActivitiesStatsTest'  , '/path/high5_act1_kast' , '0' , '400' , '-1' , '1421446599')"
+        " , ('activity2' , 'PlasmaActivitiesStatsTest'  , '/path/high6_act2_kast' , '0' , '300' , '-1' , '1421439442')"
+        " , ('activity1' , 'PlasmaActivitiesStatsTest'  , '/path/high7_act1_kast' , '0' , '200' , '-1' , '1421439442')"
+        " , ('activity1' , 'PlasmaActivitiesStatsTest'  , '/path/high8_act1_kast' , '0' , '100' , '-1' , '1421446488')"
 
-        " , ('activity1' , 'gvim'                 , '/path/mid1_act1_gvim'  , '0' , '17'  , '-1' , '1421433419')"
-        " , ('activity1' , 'gvim'                 , '/path/mid2_act1_gvim'  , '0' , '54'  , '-1' , '1421431630')"
-        " , ('activity2' , 'gvim'                 , '/path/mid3_act2_gvim'  , '0' , '8'   , '-1' , '1421433172')"
-        " , ('activity2' , 'gvim'                 , '/path/mid4_act2_gvim'  , '0' , '8'   , '-1' , '1421432545')"
-        " , ('activity2' , 'gvim'                 , '/path/mid5_act2_gvim'  , '0' , '79'  , '-1' , '1421439118')"
-        " , ('activity1' , ':global'              , '/path/mid6_act1_glob'  , '0' , '20'  , '-1' , '1421439331')"
-        " , ('activity1' , ':global'              , '/path/mid7_act1_glob'  , '0' , '8'   , '-1' , '0')"
-        " , ('activity1' , ':global'              , '/path/mid8_act1_glob'  , '0' , '7'   , '-1' , '1421432617')"
+        " , ('activity1' , 'gvim'                       , '/path/mid1_act1_gvim'  , '0' , '17'  , '-1' , '1421433419')"
+        " , ('activity1' , 'gvim'                       , '/path/mid2_act1_gvim'  , '0' , '54'  , '-1' , '1421431630')"
+        " , ('activity2' , 'gvim'                       , '/path/mid3_act2_gvim'  , '0' , '8'   , '-1' , '1421433172')"
+        " , ('activity2' , 'gvim'                       , '/path/mid4_act2_gvim'  , '0' , '8'   , '-1' , '1421432545')"
+        " , ('activity2' , 'gvim'                       , '/path/mid5_act2_gvim'  , '0' , '79'  , '-1' , '1421439118')"
+        " , ('activity1' , ':global'                    , '/path/mid6_act1_glob'  , '0' , '20'  , '-1' , '1421439331')"
+        " , ('activity1' , ':global'                    , '/path/mid7_act1_glob'  , '0' , '8'   , '-1' , '0')"
+        " , ('activity1' , ':global'                    , '/path/mid8_act1_glob'  , '0' , '7'   , '-1' , '1421432617')"
 
-        " , ('activity1' , 'gvim'                 , '/path/low3_act1_gvim'  , '0' , '6'   , '-1' , '1421434704')"
-        " , ('activity1' , 'kate'                 , '/path/low2_act1_kate'  , '0' , '3'   , '-1' , '1421433266')"
-        " , ('activity1' , 'kate'                 , '/path/low1_act1_kate'  , '0' , '2'   , '-1' , '1421433254')"));
+        " , ('activity1' , 'gvim'                       , '/path/low3_act1_gvim'  , '0' , '6'   , '-1' , '1421434704')"
+        " , ('activity1' , 'kate'                       , '/path/low2_act1_kate'  , '0' , '3'   , '-1' , '1421433266')"
+        " , ('activity1' , 'kate'                       , '/path/low1_act1_kate'  , '0' , '2'   , '-1' , '1421433254')"));
 
     database->execQuery(
         QStringLiteral("INSERT INTO  ResourceEvent (usedActivity, initiatingAgent, targettedResource, start, end ) VALUES"
