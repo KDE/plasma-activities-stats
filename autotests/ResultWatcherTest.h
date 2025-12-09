@@ -10,7 +10,7 @@
 #include <common/test.h>
 
 #include <PlasmaActivities/Controller>
-#include <memory>
+#include <QProcess>
 
 class ResultWatcherTest : public Test
 {
@@ -24,6 +24,9 @@ private Q_SLOTS:
     void testLinkedResources();
 
     void cleanupTestCase();
+
+private:
+    QProcess m_managerProcess;
 };
 
 #endif /* RESULTWATCHERTEST_H */

@@ -40,9 +40,13 @@ target_link_libraries(PlasmaActivitiesStatsTest
       Qt6::DBus
       Qt6::Sql
 
+      KF6::CoreAddons
+
       Plasma::Activities
       Plasma::ActivitiesStats
 )
+
+target_compile_definitions(PlasmaActivitiesStatsTest PRIVATE KDE_INSTALL_FULL_LIBEXECDIR=\"${KDE_INSTALL_FULL_LIBEXECDIR}\")
 
 add_test(NAME PlasmaActivitiesStatsTest COMMAND PlasmaActivitiesStatsTest)
 ecm_mark_as_test(PlasmaActivitiesStatsTest)

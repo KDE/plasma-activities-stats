@@ -14,6 +14,8 @@
 #include <QTemporaryDir>
 #include <QTest>
 
+#include <KLibexec>
+
 #include <query.h>
 #include <resultset.h>
 

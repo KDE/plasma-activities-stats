@@ -9,11 +9,16 @@
 #include <QCoreApplication>
 #include <QDBusConnection>
 #include <QDBusConnectionInterface>
+#include <QDBusServiceWatcher>
 #include <QDebug>
+#include <QSignalSpy>
+#include <QStandardPaths>
 #include <QString>
 #include <QTemporaryDir>
 #include <QTest>
 #include <QTime>
+
+#include <KLibexec>
 
 #include <PlasmaActivities/ResourceInstance>
 
@@ -82,10 +87,21 @@ void ResultWatcherTest::testLinkedResources()
 
 void ResultWatcherTest::initTestCase()
 {
+    if (qEnvironmentVariableIsSet("KDECI_BUILD")) {
+        const auto searchpaths = KLibexec::kdeFrameworksPaths("libexec") + QList{QStringLiteral(KDE_INSTALL_FULL_LIBEXECDIR)};
+        auto kactivitymanagerPath = QStandardPaths::findExecutable(QStringLiteral("kactivitymanagerd"), searchpaths);
+        QVERIFY2(!kactivitymanagerPath.isEmpty(), "Could not find kactivitymanagerd which needs to be running for this test");
+        QDBusServiceWatcher watcher(QStringLiteral("org.kde.ActivityManager"), QDBusConnection::sessionBus(), QDBusServiceWatcher::WatchForRegistration);
+        QSignalSpy registrationWatcher(&watcher, &QDBusServiceWatcher::serviceRegistered);
+        m_managerProcess.setProgram(kactivitymanagerPath);
+        m_managerProcess.start();
+        QVERIFY(registrationWatcher.count() || registrationWatcher.wait());
+    }
 }
 
 void ResultWatcherTest::cleanupTestCase()
 {
+    m_managerProcess.terminate();
     Q_EMIT testFinished();
 }
 
