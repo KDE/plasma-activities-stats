@@ -1,6 +1,8 @@
 # vim:set softtabstop=3 shiftwidth=3 tabstop=3 expandtab:
 project (PlasmaActivitiesStatsAutotests)
 
+include (ECMMarkAsTest)
+
 find_package (Qt6 REQUIRED NO_MODULE COMPONENTS Test Core DBus Sql)
 
 if (NOT WIN32)
@@ -41,5 +43,8 @@ target_link_libraries(PlasmaActivitiesStatsTest
       Plasma::Activities
       Plasma::ActivitiesStats
 )
+
+add_test(NAME PlasmaActivitiesStatsTest COMMAND PlasmaActivitiesStatsTest)
+ecm_mark_as_test(PlasmaActivitiesStatsTest)
 
 endif ()

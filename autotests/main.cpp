@@ -56,7 +56,7 @@ private:
     void next()
     {
         if (m_nextToStart >= m_tests.size()) {
-            QCoreApplication::exit(0);
+            QCoreApplication::exit(m_result);
             return;
         }
 
@@ -64,12 +64,13 @@ private:
 
         QObject::connect(test, &Test::testFinished, this, &TestRunner::next, Qt::QueuedConnection);
 
-        QTest::qExec(test);
+        m_result |= QTest::qExec(test);
     }
 
 private:
     QList<Test *> m_tests;
     int m_nextToStart;
+    int m_result = 0;
 };
 
 int main(int argc, char *argv[])
