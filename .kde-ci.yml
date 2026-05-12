@@ -6,5 +6,5 @@ Dependencies:
     'plasma/kactivitymanagerd': '@same'
 
 Options:
+ require-passing-tests-on: ['@all']
  test-before-installing: True
- require-passing-tests-on: ['Linux', 'FreeBSD']
