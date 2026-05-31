@@ -8,3 +8,4 @@ Dependencies:
 Options:
  require-passing-tests-on: ['@all']
  test-before-installing: True
+ enable-lsan: True
