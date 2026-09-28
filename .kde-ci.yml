@@ -3,6 +3,10 @@ Dependencies:
    'require':
     'frameworks/extra-cmake-modules': '@latest-kf6'
     'plasma/plasma-activities': '@same'
+
+RuntimeDependencies:
+ - 'on': ['Linux', 'FreeBSD']
+   'require':
     'plasma/kactivitymanagerd': '@same'
 
 Options:
